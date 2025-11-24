@@ -3,8 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
 
 jobs:
   deploy:
@@ -13,51 +11,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      with:
-        # 设置为true获取完整历史记录
-        fetch-depth: 0
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: |
-        # 如果您的项目有package.json，在这里安装依赖
-        # npm install
-        
-        # 如果您使用的是Vue CLI、React等，可能需要安装构建工具
-        # npm install -g @vue/cli
-        # npm install -g create-react-app
-        pass
-
-    - name: Build
-      run: |
-        # 根据您的项目类型选择构建命令
-        # Vue.js项目: npm run build
-        # React项目: npm run build
-        # 纯HTML项目: 无需构建，直接复制文件
-        
-        # 示例：如果是Vue项目
-        # npm run build
-        
-        # 示例：如果是React项目
-        # npm run build
-        
-        # 示例：如果只是静态HTML，创建一个简单的dist目录
-        mkdir -p dist
-        cp -r . ../dist/
-        rm -rf ../dist/.git
-        rm -rf ../dist/.github
-        rm -rf ../dist/node_modules
-        pass
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        publish_dir: .
         force_orphan: true
         publish_branch: gh-pages
+        exclude_assets: '.git*,node_modules,README.md'
