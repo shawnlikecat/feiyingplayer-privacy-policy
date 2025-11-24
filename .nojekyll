@@ -1,0 +1,5 @@
+# GitHub Pages部署配置文件
+
+# .nojekyll文件
+# 这个文件确保GitHub Pages不会使用Jekyll处理您的站点
+# 如果您的项目包含下划线开头的文件（如_开头的文件），需要这个文件
